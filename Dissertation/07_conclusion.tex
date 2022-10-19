@@ -1,0 +1,41 @@
+\chapter{Conclusion}
+\label{ch:conclusion}
+This chapter will summarize the project by concluding the achievements, discussing the reflections and limitations, and identifying the future work of the project. 
+
+
+\section{Achievements \& Contribution}
+
+In this project, we developed a web application for CV checking based on NLP techniques and Machine Learning algorithms. The main achievements can be divided into two parts, one is researching and implementing different techniques to achieve some of the functionalities in the existing CV checker, and the other is developing our own CV checker by applying those techniques. More specifically, the research and experimentation were mainly focused on the task of resume parsing, information identification, skill extraction and skill matching.
+
+Firstly, we collected the resume and job description dataset, and chose suitable preprocessing techniques to prepare the data. Subsequently, to meet the requirements, we had in-depth research and experiments on the related techniques and systems of the target tasks. Based on an annotated resume dataset, we trained an NER model to recognize important named entities in the resume with a precision of over 0.95 in some kinds of named entities. As for the skill extraction task, we implemented K-means clustering, LDA topic model and a hybrid approach proposed by Ketterer \cite{ketterer}. After comparing the results, the hybrid approach was chosen for recognizing skills. In order to fit our dataset, we did modifications and improvements from the initially proposed algorithm, and got acceptable performance with an accuracy of over 0.8. Furthermore, applying the trained models, a web application was developed. The CV checker allows user to upload their CV and job description, then returns the feedback of the resume on both content check and the match details between the resume and the position. Despite the current limitations of the deliverable, this application met the basic requirements. 
+
+
+
+\section{Reflection}
+
+Through reviewing the entire experiments and development process, there are some limitations, and the project still has room for improvement. Firstly, as discussed in Section \ref{sec:match}, the match rate between the resume and the job description by computing the cosine similarity of the two texts is not robust. Matching the resume and job description keywords might get a more reasonable result. 
+
+As mentioned in \ref{sec:ner_result}, though the NER model for information identification performed well in recognizing many named entities, the recognition ability was still weak. When testing new resumes which are not in the train and validation set, some important information was missing, and few recognized entities were not exactly correct. The insufficient and imbalanced training set for the NER model could be one effect of the recognition result. The patterns' similarity within a named entity could also influence the performance, where the performance might get worse if there are various patterns for one entity in different resumes. Moreover, to eliminate the entity-overlapping problem, we had to remove some annotations in the training set, which also affected the model performance.
+
+There are some limitations on the implementation of the skill extraction task as well. Without a massive and reliable skill database, we utilized basic NLP techniques and a deep learning model to identify the skills in job description text with the idea from Ketterer \cite{ketterer}. The performance of the neural network to binary classify the phrases was acceptable, but the latent skill-related phrases extracted by regex chunking were not that satisfied. Using regular expression to obtain the potential skill chunks based on POS tags could identify some skill phrases, but might also get uninterpretable expressions; for instance, part of the phrase is skill while the rest is not related. Therefore, the skill extraction result is extremely reliant on the setting of the regex. But it is a hard task to define commonly used regular expressions of skills since the representation of skills is various. 
+
+As for the application, the functionalities are limited. The current deliverable can get the matching result between the resume and the position, and can check the basic content of the resume, such as name, e-mail address, college name and degree. According to the existing powerful CV checkers, word use, writing style, and format also matter in the resume and need to be checked, which can be regarded as future work for our project. Additionally, the current parser could only parse the resume written in one column, which is also a limitation.
+
+\section{Future Work}
+
+According to the limitations pointed out in the previous section, improvements could be made in several aspects of this project. The first issue that needs to be focused on is refining the dataset. It is vital to extend the training set with consistency named entity labels to identify the important information in the resume more accurate and efficient with the NER model. In addition, a Bi-LSTM-CRF model for sequence labeling proposed by Huang et al. \cite{huang2015bidirectional} is said to be robust and result in state of art accuracy on the NER dataset, which can be referred to improve our NER model. 
+
+As for the skill extraction task, our hybrid approach with BERT model can be enhanced by setting more specific regex and obtaining more interpretable chunks. Smith et al. \cite{smith2021skill} proposed a syntactic approach for word embedding enabling to model a significant distinction between skill terms and non-skill terms, which can be combined with our model. Generally, identifying skills in job description data is a complex and study-worthy research question. In order to get a precise result of extracting skills, more effort is needed for research and experimentation in the future. According to an existing skill extractor \href{https://github.com/AnasAito/SkillNER}{SkillNER}\cite{skillner}, rule-based NLP module can get excellent performance if there is a reliable and massive skill database. Therefore, our subsequent research should not be restricted to improving the output result of the machine learning model since building a dependable skill database might get a more efficient result. Furthermore, defining the soft skill and hard skill from the extracted skills should also be taken into consideration for further development. 
+
+With regard to the usability of the application, there are many other functionalities can be implemented to get a more powerful CV checker in the future. Firstly, since this project put emphasis on the back-end algorithms, the user interface of the application is currently quite simple. Further development can be on optimizing the UI and the visualization result. Subsequently, checking word use, format, spelling and writing style could all be taken as the inspiration for further development. Additionally, a resume ranking system for companies to screen the candidates for a position is proposed by Amin et al \cite{amin2019web}. It can be defined as the future developing direction of our project, that extends the target users from only job seekers to both job seekers and recruiters by accepting multiple resumes as input and returning the ranking of them.
+
+
+% skill extraction is a complex work, need reliable and huge dataset to get better result
+
+% extend training data
+
+% read different style of resume (e.g. two columns)
+
+% for functionality of CV checker
+
+% each part of the back-end algorithms
